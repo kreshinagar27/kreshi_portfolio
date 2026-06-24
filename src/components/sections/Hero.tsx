@@ -1,66 +1,82 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { portfolioData } from "@/data/portfolio";
+
+const roles = [
+  "Student Developer",
+  "Computer Science Student",
+  "Specialization in Data Science"
+];
 
 export default function Hero() {
-  const { name, tagline, bio, contact } = portfolioData.personalInfo;
-  const { stats } = portfolioData;
-
-  const [typedText, setTypedText] = useState("");
-  const fullText = "Full Stack Developer & App Creator";
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      // Use index variable closure to safely reference incrementing value
-      setTypedText(fullText.substring(0, index + 1));
-      index++;
-      if (index >= fullText.length) {
-        clearInterval(interval);
+    const fullText = roles[currentRoleIndex];
+    let timer: NodeJS.Timeout;
+
+    if (!isDeleting) {
+      if (currentText !== fullText) {
+        timer = setTimeout(() => {
+          setCurrentText(fullText.substring(0, currentText.length + 1));
+        }, 70); // Typing speed
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2000); // Pause after typing
       }
-    }, 60);
-    return () => clearInterval(interval);
-  }, []);
+    } else {
+      if (currentText !== "") {
+        timer = setTimeout(() => {
+          setCurrentText(fullText.substring(0, currentText.length - 1));
+        }, 40); // Deleting speed
+      } else {
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentRoleIndex((prevIdx) => (prevIdx + 1) % roles.length);
+        }, 400); // Pause before next phrase
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, currentRoleIndex]);
 
   return (
     <section id="home" className="hero">
+      <video
+        src="/videos/hero-video.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/hero-poster.jpg"
+        className="hero-video"
+      />
       <div className="hero-text">
-        <div className="badge">
-          🟢 Available for Opportunities
+        <h1 className="hero-name-split font-outfit">
+          Kreshi
+          <br />
+          Nagar
+        </h1>
+
+        <div className="plaque-drop-line" />
+
+        <div className="hero-plaque">
+          <div className="plaque-top">
+            <span className="plaque-label font-outfit">ROLE</span>
+            <span className="plaque-value font-outfit">DATA SCIENCE STUDENT</span>
+          </div>
+          <div className="plaque-bottom">
+            <span className="plaque-sub-label font-outfit">CURRENTLY OPERATING AS</span>
+            <h3 className="plaque-typing font-outfit">
+              {currentText}
+              <span className="animate-pulse text-[#14b8a6]">|</span>
+            </h3>
+          </div>
         </div>
-
-        <h1>{name}</h1>
-
-        <h2 id="typing-text">{typedText}</h2>
-
-        <p>{bio}</p>
-
-        <div className="hero-buttons">
-          <a href="#projects">
-            <button className="hero-btn-primary">View Projects</button>
-          </a>
-          <a href="#contact">
-            <button className="contact-btn">Contact Me</button>
-          </a>
-        </div>
-
-        <div className="stats">
-          {stats.map((stat, idx) => (
-            <div key={idx}>
-              <h3>{stat.value}</h3>
-              <span>{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="hero-image">
-        {/* We use an elegant high-quality developer avatar from Unsplash as the profile image */}
-        <img
-          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000"
-          alt={name}
-        />
       </div>
     </section>
   );

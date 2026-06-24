@@ -4,7 +4,7 @@ import "./globals.css";
 import { portfolioData } from "@/data/portfolio";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import ChatBot from "@/components/ui/ChatBot";
+import IntroWrapper from "@/components/ui/IntroWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,11 +35,16 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
       </head>
-      <body className={`${poppins.variable} antialiased bg-black text-white font-sans`}>
-        <Navbar />
-        {children}
-        <Footer />
-        <ChatBot />
+      <body
+        className={`${poppins.variable} antialiased bg-[#F8F6F1] text-[#0f172a] font-sans`}
+      >
+        <IntroWrapper>
+          <Navbar />
+          <div className="content-wrapper">
+            {children}
+            <Footer />
+          </div>
+        </IntroWrapper>
       </body>
     </html>
   );

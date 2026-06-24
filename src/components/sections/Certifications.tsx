@@ -1,47 +1,138 @@
 "use client";
 
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import { portfolioData } from "@/data/portfolio";
-import { Award } from "lucide-react";
+import AnimateHeading from "@/components/ui/AnimateHeading";
+
+const row1Data = [
+  {
+    title: "AWS Certified Developer",
+    issuer: "Amazon Web Services",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=AWS+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "Google Cloud Engineer",
+    issuer: "Google Cloud Platform",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=Google+Cloud+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "Meta Front-End Developer",
+    issuer: "Meta",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=Meta+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "TensorFlow Developer",
+    issuer: "Google",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=TensorFlow+Certification",
+    credentialLink: "#"
+  }
+];
+
+const row2Data = [
+  {
+    title: "React Advanced Patterns",
+    issuer: "Frontend Masters",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=React+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "Full Stack Open",
+    issuer: "University of Helsinki",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=Full+Stack+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "AI Specialist",
+    issuer: "Microsoft Azure",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=Microsoft+AI+Certification",
+    credentialLink: "#"
+  },
+  {
+    title: "Data Science Professional",
+    issuer: "IBM",
+    issueDate: "Coming Soon",
+    image: "https://placehold.co/600x400/111827/38bdf8?text=IBM+Data+Science",
+    credentialLink: "#"
+  }
+];
 
 export default function Certifications() {
-  const { certifications } = portfolioData;
+  const doubleRow1 = [...row1Data, ...row1Data];
+  const doubleRow2 = [...row2Data, ...row2Data];
 
   return (
-    <section id="certifications" className="py-24 relative max-w-7xl mx-auto px-6">
-      <RevealOnScroll>
-        <h2 className="text-center text-[#0f766e] text-4xl font-bold tracking-tight mb-12">Certifications</h2>
-      </RevealOnScroll>
+    <section id="certifications" className="certifications fade-up">
+      <div className="certifications-layout-container">
+        
+        {/* Right Aligned Header Block */}
+        <RevealOnScroll>
+          <div className="certifications-header-block">
+            <AnimateHeading text="Certifications" id="certifications-heading" align="right" className="certifications-heading" />
+            <p className="certifications-subtitle">
+              Building expertise through continuous learning and professional development.
+            </p>
+          </div>
+        </RevealOnScroll>
+      </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {certifications.map((cert, idx) => (
-          <RevealOnScroll key={idx} delay={idx * 0.1} direction="up">
-            <div className="project-card border border-white/5 hover:border-lavender/30 p-8 flex flex-col justify-between h-full group relative overflow-hidden">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[#14b8a6] group-hover:scale-110 transition-transform">
-                  <Award size={24} />
+      {/* Multiple Moving Rows Showcase */}
+      <div className="certifications-showcase-wrapper">
+        
+        {/* Row 1: Moves Left */}
+        <div className="certifications-marquee-container">
+          <div className="certifications-marquee-track row-left">
+            {doubleRow1.map((cert, idx) => (
+              <a 
+                key={`r1-${idx}`}
+                href={cert.credentialLink}
+                className="cert-showcase-card"
+              >
+                <div className="cert-card-image-wrapper">
+                  <img src={cert.image} alt={cert.title} className="cert-card-img" />
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1 leading-snug">{cert.title}</h3>
-                  <p className="text-gray-400 text-sm font-semibold">{cert.issuer}</p>
+                <div className="cert-card-info">
+                  <span className="cert-issuer">{cert.issuer}</span>
+                  <h3 className="cert-title">{cert.title}</h3>
+                  <div className="cert-divider" />
+                  <span className="cert-subtext">{cert.issueDate}</span>
                 </div>
-              </div>
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5">
-                <span className="text-xs text-gray-500 font-medium">{cert.date}</span>
-                {cert.image && cert.image !== "placeholder" && (
-                  <a
-                    href={cert.image}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-[#38bdf8] hover:text-[#14b8a6] font-semibold transition-colors"
-                  >
-                    View Credential
-                  </a>
-                )}
-              </div>
-            </div>
-          </RevealOnScroll>
-        ))}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2: Moves Right */}
+        <div className="certifications-marquee-container">
+          <div className="certifications-marquee-track row-right">
+            {doubleRow2.map((cert, idx) => (
+              <a 
+                key={`r2-${idx}`}
+                href={cert.credentialLink}
+                className="cert-showcase-card"
+              >
+                <div className="cert-card-image-wrapper">
+                  <img src={cert.image} alt={cert.title} className="cert-card-img" />
+                </div>
+                <div className="cert-card-info">
+                  <span className="cert-issuer">{cert.issuer}</span>
+                  <h3 className="cert-title">{cert.title}</h3>
+                  <div className="cert-divider" />
+                  <span className="cert-subtext">{cert.issueDate}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

@@ -43,7 +43,7 @@ export const portfolioData = {
     "React.js",
     "Node.js",
     "MongoDB",
-    "Full Stack Development"
+    "Backend & APIs"
   ],
   experience: [
     {
