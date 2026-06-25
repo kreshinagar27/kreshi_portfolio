@@ -12,6 +12,7 @@ export default function Hero() {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -72,17 +73,20 @@ export default function Hero() {
 
   return (
     <section id="home" className="hero">
-      <video
-        ref={videoRef}
-        src="/videos/hero-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline webkit-playsinline="true"
-        preload="auto"
-        poster="/profilepic.jpeg"
-        className="hero-video"
-      />
+        <video
+          ref={videoRef}
+          src="/videos/hero-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          poster="/profilepic.jpeg"
+          className="hero-video"
+          style={{ opacity: videoReady ? 1 : 0, transition: "opacity 0.5s ease-in-out" }}
+          onCanPlayThrough={() => setVideoReady(true)}
+        />
       <div className="hero-text">
         <h1 className="hero-name-split font-outfit">
           Kreshi
