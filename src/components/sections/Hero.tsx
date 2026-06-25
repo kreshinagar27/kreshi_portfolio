@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const roles = [
   "Student Developer",
@@ -12,6 +12,7 @@ export default function Hero() {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const fullText = roles[currentRoleIndex];
@@ -43,15 +44,25 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, currentRoleIndex]);
 
+  // Fallback playback for mobile browsers that may block autoplay
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay was prevented; could show UI fallback if needed
+      });
+    }
+  }, []);
+
   return (
     <section id="home" className="hero">
       <video
+        ref={videoRef}
         src="/videos/hero-video.mp4"
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         poster="/images/hero-poster.jpg"
         className="hero-video"
       />

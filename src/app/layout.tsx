@@ -12,13 +12,12 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export const metadata: Metadata = {
-  title: `${portfolioData.personalInfo.name} | Portfolio`,
-  description: portfolioData.personalInfo.tagline,
-  openGraph: {
-    title: `${portfolioData.personalInfo.name} | Portfolio`,
-    description: portfolioData.personalInfo.tagline,
-    type: "website",
+export const metadata = {
+  title: "Kreshi Nagar",
+  description: "Portfolio Website",
+
+  verification: {
+    google: "N9U8cbDgA2_XdSzieigFS0JmnAfIA-_f_nmAA2Da1bc",
   },
 };
 
