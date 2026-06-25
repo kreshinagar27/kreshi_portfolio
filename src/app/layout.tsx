@@ -13,8 +13,33 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Kreshi Nagar",
-  description: "Portfolio Website",
+  title: "Kreshi Nagar | Data Science Student Portfolio",
+  description:
+    "Kreshi Nagar is a Data Science student at NMIMS Chandigarh. Explore projects in AI, Machine Learning, Data Analytics, Web Development, and Software Engineering.",
+
+  keywords: [
+    "Kreshi Nagar",
+    "Data Science Student",
+    "NMIMS Chandigarh",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Data Analytics",
+    "Portfolio",
+    "Student Developer",
+    "Web Development",
+    "Python",
+  ],
+
+  authors: [{ name: "Kreshi Nagar" }],
+
+  openGraph: {
+    title: "Kreshi Nagar | Data Science Portfolio",
+    description:
+      "Portfolio showcasing AI, Machine Learning, Data Analytics, and Web Development projects.",
+    url: "https://kreshinagar-portfolio.vercel.app",
+    siteName: "Kreshi Nagar Portfolio",
+    type: "website",
+  },
 
   verification: {
     google: "N9U8cbDgA2_XdSzieigFS0JmnAfIA-_f_nmAA2Da1bc",
