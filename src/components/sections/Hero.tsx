@@ -44,13 +44,30 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, currentRoleIndex]);
 
-  // Fallback playback for mobile browsers that may block autoplay
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay was prevented; could show UI fallback if needed
-      });
-    }
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch {
+        const retry = () => {
+          video.play().catch(() => {});
+          window.removeEventListener("touchstart", retry);
+        };
+
+        window.addEventListener("touchstart", retry, {
+          once: true,
+        });
+      }
+    };
+
+    playVideo();
   }, []);
 
   return (
@@ -61,9 +78,9 @@ export default function Hero() {
         autoPlay
         muted
         loop
-        playsInline
+        playsInline webkit-playsinline="true"
         preload="auto"
-        poster="/images/hero-poster.jpg"
+        poster="/profilepic.jpeg"
         className="hero-video"
       />
       <div className="hero-text">
